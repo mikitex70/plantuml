@@ -1,0 +1,1 @@
+gem 'inline_svg'

@@ -6,6 +6,7 @@ Redmine::Plugin.register :plantuml do
   url 'https://github.com/dkd/plantuml'
 
   requires_redmine version: '2.6'..'3.1'
+  require_dependency "plantuml/patches/inline_svg"
 
   settings(partial: 'settings/plantuml',
            default: { 'plantuml_binary' => {}, 'cache_seconds' => '0' })
@@ -27,7 +28,10 @@ EOF
       raise 'No or bad arguments.' if args.size != 1
       frmt = PlantumlHelper.check_format(args.first)
       image = PlantumlHelper.plantuml(text, args.first)
-      image_tag "/plantuml/#{frmt[:type]}/#{image}#{frmt[:ext]}"
+
+      return inline_svg File.open(PlantumlHelper.plantuml_file(image, frmt[:ext]), "rb") if frmt[:type] == 'svg'
+
+      image_tag "/plantuml/#{frmt[:type]}/#{image}#{frmt[:ext]}" if frmt[:type] != 'svg'
     end
   end
 end
