@@ -2,8 +2,9 @@ require 'digest/sha2'
 
 module PlantumlHelper
   ALLOWED_FORMATS = {
-    'png' => { type: 'png', ext: '.png', content_type: 'image/png', inline: true },
-    'svg' => { type: 'svg', ext: '.svg', content_type: 'image/svg+xml', inline: true }
+    'png'        => { type: 'png', ext: '.png', content_type: 'image/png'    , inline: false },
+    'svg'        => { type: 'svg', ext: '.svg', content_type: 'image/svg+xml', inline: false },
+    'inline_svg' => { type: 'svg', ext: '.svg', content_type: 'image/svg+xml', inline: true  }
   }.freeze
 
   def self.construct_cache_key(key)

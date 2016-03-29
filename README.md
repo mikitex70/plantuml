@@ -37,6 +37,14 @@ This plugin will allow adding [PlantUML](http://plantuml.sourceforge.net/) diagr
 
 - you can choose between PNG or SVG images by setting the `plantuml` macro argument to either `png` or `svg`
 
+- a special format `inline_svg` can be used to embedd svg into html page. With embedded svg's it's possible tu use hyperlinks to navigate to wiki pages from the diagram (see http://plantuml.sourceforge.net/qa/?qa=90/web-links-in-generated-images-e-g-using-image-maps for details). For example:
+
+```
+{{plantuml(inline_svg)
+  Bob -> Alice : hello [[https://github.com/dkd/plantuml{Thanks Michael Skrynski} rendered by plantuml plugin]]
+}}
+```
+
 ## Known issues
 
 - PlantUML diagrams are not rendered inside a PDF export, see https://github.com/dkd/plantuml/issues/1

@@ -7,9 +7,14 @@ Redmine::Plugin.register :plantuml do
 
   requires_redmine version: '2.6'..'3.1'
   require_dependency "plantuml/patches/inline_svg"
+  require_dependency 'stylesize_transform'
 
   settings(partial: 'settings/plantuml',
            default: { 'plantuml_binary' => {}, 'cache_seconds' => '0' })
+
+  InlineSvg.configure do |config|
+    config.add_custom_transformation(attribute: :style_size, transform: StyleSizeTransform)
+  end
 
   Redmine::WikiFormatting::Macros.register do
     desc <<EOF
@@ -21,7 +26,7 @@ Redmine::Plugin.register :plantuml do
       </pre>
 
       Available options are:
-      ** (png|svg)
+      ** (png|svg|inline_svg)
 EOF
     macro :plantuml do |obj, args, text|
       raise 'No PlantUML binary set.' if Setting.plugin_plantuml['plantuml_binary_default'].blank?
@@ -29,9 +34,9 @@ EOF
       frmt = PlantumlHelper.check_format(args.first)
       image = PlantumlHelper.plantuml(text, args.first)
 
-      return inline_svg File.open(PlantumlHelper.plantuml_file(image, frmt[:ext]), "rb") if frmt[:type] == 'svg'
+      return inline_svg(File.open(PlantumlHelper.plantuml_file(image, frmt[:ext]), "rb"), style_size: '100%', preserve_aspect_ratio: 'xMaxYMax meet') if frmt[:type] == 'svg' and frmt[:inline]
 
-      image_tag "/plantuml/#{frmt[:type]}/#{image}#{frmt[:ext]}" if frmt[:type] != 'svg'
+      image_tag "/plantuml/#{frmt[:type]}/#{image}#{frmt[:ext]}"
     end
   end
 end
