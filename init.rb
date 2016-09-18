@@ -2,15 +2,17 @@ Redmine::Plugin.register :plantuml do
   name 'PlantUML plugin for Redmine'
   author 'Michael Skrynski'
   description 'This is a plugin for Redmine which renders PlantUML diagrams.'
-  version '0.3.0'
+  version '0.3.1'
   url 'https://github.com/dkd/plantuml'
 
-  requires_redmine version: '2.6'..'3.1'
+  requires_redmine version: '2.6'..'3.3'
   require_dependency "plantuml/patches/inline_svg"
   require_dependency 'stylesize_transform'
 
   settings(partial: 'settings/plantuml',
-           default: { 'plantuml_binary' => {}, 'cache_seconds' => '0' })
+           default: { 'plantuml_binary' => Rails.root.join(File.dirname(__FILE__), 'bin').to_s, 
+                      'plantuml_resources' => Rails.root.join('files/resources').to_s,
+                      'cache_seconds' => '0' })
 
   InlineSvg.configure do |config|
     config.add_custom_transformation(attribute: :style_size, transform: StyleSizeTransform)

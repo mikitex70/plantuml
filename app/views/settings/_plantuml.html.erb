@@ -8,5 +8,9 @@
     <label><%= l(:plantuml_binary) %></label>
     <%= text_field_tag 'settings[plantuml_binary_default]', @settings['plantuml_binary_default'], size: 60 %>
   </p>
+  <p>
+    <label><%= l(:plantuml_resources) %></label>
+    <%= text_field_tag 'settings[plantuml_resources_default]', @settings['plantuml_resources_default'], size: 60 %>
+  </p>
 
 </fieldset>

@@ -1,0 +1,5 @@
+en:
+  plugin_settings: 'Impostazioni plugin'
+  cache_expiration: 'Durata in cache'
+  plantuml_binary: 'Percorso di PlantUML'
+  plantuml_resources: 'Percorso delle risorse'

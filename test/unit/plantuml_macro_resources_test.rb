@@ -7,7 +7,7 @@ class PlantumlMacroTest < ActionController::TestCase
 
   def setup
     Setting.plugin_plantuml['plantuml_binary_default'] = '/usr/bin/plantuml'
-    Setting.plugin_plantuml['plantuml_resources_default'] = ""
+    Setting.plugin_plantuml['plantuml_resources_default'] = File.expand_path('../../fixtures/resources', __FILE__)
   end
 
   def test_plantuml_macro_with_png
