@@ -1,8 +1,8 @@
-#PlantUML Redmine plugin
+# PlantUML Redmine plugin
 
 This plugin will allow adding [PlantUML](http://plantuml.sourceforge.net/) diagrams into Redmine.
 
-##Requirements
+## Requirements
 
 - Java
 - PlantUML binary
@@ -44,6 +44,12 @@ This plugin will allow adding [PlantUML](http://plantuml.sourceforge.net/) diagr
   Bob -> Alice : hello [[https://github.com/dkd/plantuml{Thanks Michael Skrynski} rendered by plantuml plugin]]
 }}
 ```
+
+## using !include params
+
+Since all files are written out to the system, there is no safe way to prevent editors from using the `!include` command inside the code block.
+Therefore every input will be sanitited before writing out the .pu files for further interpretation. You can overcome this by activating the `Setting.plugin_plantuml['allow_includes']`
+**Attention**: this is dangerous, since all files will become accessible on the host system.
 
 ## Known issues
 

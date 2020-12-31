@@ -2,17 +2,19 @@ Redmine::Plugin.register :plantuml do
   name 'PlantUML plugin for Redmine'
   author 'Michael Skrynski'
   description 'This is a plugin for Redmine which renders PlantUML diagrams.'
-  version '0.3.3'
+  version '0.5.1'
   url 'https://github.com/dkd/plantuml'
 
-  requires_redmine version: '2.6'..'3.4'
+  requires_redmine version: '2.6'..'4.1'
   require_dependency "plantuml/patches/inline_svg"
   require_dependency 'stylesize_transform'
 
   settings(partial: 'settings/plantuml',
-           default: { 'plantuml_binary' => Rails.root.join(File.dirname(__FILE__), 'bin').to_s, 
-                      'plantuml_resources' => Rails.root.join('files/resources').to_s,
-                      'cache_seconds' => '0' })
+           default: { 'plantuml_binary' => {}, 
+                      'cache_seconds' => '0',
+                      'allow_includes' => false,
+                      'plantuml_resources' => Rails.root.join('files/resources').to_s
+                    })
 
   InlineSvg.configure do |config|
     config.add_custom_transformation(attribute: :style_size, transform: StyleSizeTransform)
@@ -49,6 +51,6 @@ Rails.configuration.to_prepare do
 
   unless Redmine::WikiFormatting::Textile::Helper.included_modules.include? PlantumlHelperPatch
     Redmine::WikiFormatting::Textile::Helper.send(:include, PlantumlHelperPatch)
-    require_dependency 'plantuml/hooks/views_layouts_hook'
+    #require_dependency 'plantuml/hooks/views_layouts_hook'
   end
 end

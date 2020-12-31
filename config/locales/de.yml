@@ -2,4 +2,5 @@ de:
   plugin_settings: 'Plugin Einstellungen'
   cache_expiration: 'Cache Gültigkeit'
   plantuml_binary: 'PlantUML Binärdatei'
+  allow_includes: 'Includes zulassen (ACHTUNG! Sicherheitsrisiko)'
   plantuml_resources: "Ressourcen -Pfad"
